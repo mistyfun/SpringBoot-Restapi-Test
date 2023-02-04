@@ -38,15 +38,24 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{userId}")
-    public ResponseEntity<User> deleteUser(@PathVariable String userId){
+    public ResponseEntity<User> deleteUser(@PathVariable String userId) {
         User user = userService.getUser(userId);
         boolean deleted = userService.removeUser(userId);
-        if (deleted){
+        if (deleted) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        } else{
+        } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
     }
 
+    @PostMapping("/users")
+    public ResponseEntity<User> createUser(@RequestBody User userRequest) {
+        User user = userService.createUser(userRequest.name(), userRequest.email());
+        if (user != null) {
+            return new ResponseEntity<>(null, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

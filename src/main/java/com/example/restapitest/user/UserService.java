@@ -11,9 +11,9 @@ public class UserService {
     //UserService is where the business logics are
     public Set<User> users = new HashSet<>(
             List.of(
-                    new User("1", "Sandy", "0987654321@email.com"),
-                    new User("2", "Tom", "1122334455@email.com"),
-                    new User("3", "Jerry", "12345@email.com")
+                    new User("Sandy", "0987654321@email.com"),
+                    new User("Tom", "1122334455@email.com"),
+                    new User("Jerry", "12345@email.com")
             )
     );
 
@@ -28,5 +28,12 @@ public class UserService {
             }
         }
         return null;
+    }
+
+    public User createUser(String name, String email) {
+        if (name == null || email == null) return null;
+        User user = new User(name, email);
+        users.add(user);
+        return user;
     }
 }
