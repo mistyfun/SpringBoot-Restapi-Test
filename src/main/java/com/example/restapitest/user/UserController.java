@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 // this is like a Servlet
@@ -35,7 +33,20 @@ public class UserController {
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<User> deleteUser(@PathVariable String userId){
+        User user = userService.getUser(userId);
+        boolean deleted = userService.removeUser(userId);
+        if (deleted){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }
