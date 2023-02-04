@@ -1,9 +1,11 @@
 package com.example.restapitest.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
@@ -23,6 +25,17 @@ public class UserController {
     // by default, spring serializes objects into json
     public ResponseEntity<Set<User>> users() {
         // users
-        return new ResponseEntity<>(userService.users, HttpStatus.OK);
+        Set<User> users = userService.users;
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<User> getUser(@PathVariable String userId) {
+        User user = userService.getUser(userId);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        }
     }
 }
