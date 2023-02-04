@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 public class RestapitestApplication {
-
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(RestapitestApplication.class, args);
+		//spring will find controllers & initialize them for us
 	}
-
 }
