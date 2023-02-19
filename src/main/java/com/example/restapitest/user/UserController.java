@@ -58,4 +58,14 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PatchMapping("/users/{userId}")
+    public ResponseEntity<User> updateUser(@RequestBody User userRequest) {
+        User user = userService.updateUser(userRequest);
+        if (user != null) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

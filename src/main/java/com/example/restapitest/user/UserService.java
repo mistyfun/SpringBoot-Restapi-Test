@@ -36,4 +36,12 @@ public class UserService {
         users.add(user);
         return user;
     }
+
+    public User updateUser(User user) {
+        if (user.id() == null || user.name() == null || user.email() == null) return null;
+        removeUser(user.id());
+        users.add(user);
+        return user;
+    }
+
 }
